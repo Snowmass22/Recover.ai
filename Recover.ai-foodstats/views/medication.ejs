@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Medication Reminders - Recovr.AI</title>
+
+    <link rel="stylesheet" href="/stylesheet/reminders.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/images/favicon-32x32.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/images/favicon-16x16.png" />
+
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/images/apple-touch-icon.png" />
+
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <style>
+      /* --- THEME VARIABLES --- */
+      :root {
+        --brand-green: #2ecc71;
+        --brand-green-dark: #27ae60;
+        --brand-blue: #4285f4;
+        --bg-color: #f8f9fa;
+        --card-bg: #ffffff;
+        --text-dark: #333333;
+        --nav-text: #555;
+        --border-color: #e5e5e5;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        font-family: "Inter", sans-serif;
+        margin: 0;
+        padding: 0;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* --- NAVBAR (Desktop) --- */
+      .navbar {
+        background-color: white;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 24px;
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .logo-section {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 700;
+        font-size: 1.4rem;
+        color: var(--brand-green);
+        text-decoration: none;
+        letter-spacing: -0.5px;
+      }
+
+      /* Desktop Logo Scaling */
+      .logo-section img {
+        height: 35px;
+        width: auto;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 32px;
+        height: 100%;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-item {
+        text-decoration: none;
+        color: var(--nav-text);
+        font-weight: 500;
+        font-size: 0.95rem;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        border-bottom: 3px solid transparent;
+        transition: all 0.2s;
+        text-transform: capitalize;
+      }
+
+      .nav-item:hover {
+        color: var(--brand-green);
+      }
+      .nav-item.active {
+        color: black;
+        border-bottom-color: var(--brand-green);
+      }
+
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .profile-icon {
+        width: 36px;
+        height: 36px;
+        background-color: #e57373;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        overflow: hidden;
+      }
+
+      /* --- MOBILE HEADER --- */
+      .mobile-header {
+        display: none;
+        background-color: white;
+        height: 60px;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 15px;
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .mobile-back-btn {
+        color: var(--text-dark);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .mobile-logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--brand-green);
+        font-weight: 700;
+        font-family: "Inter", sans-serif;
+        font-size: 1.2rem;
+        letter-spacing: -0.5px;
+      }
+
+      /* Mobile Logo Scaling */
+      .mobile-logo img {
+        height: 28px;
+        width: auto;
+      }
+
+      /* Container Adjustment for consistent padding */
+      .reminders-container {
+        flex: 1;
+        padding: 24px;
+        padding-bottom: calc(
+          24px + env(safe-area-inset-bottom)
+        ); /* iOS safe area */
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      /* --- RESPONSIVENESS --- */
+      @media (max-width: 768px) {
+        .navbar {
+          display: none;
+        }
+        .mobile-header {
+          display: flex;
+        }
+        .reminders-container {
+          padding: 15px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <a href="/dashboard" class="logo-section">
+        <img src="/images/logo.png" alt="Recovr.AI Logo" />
+        <span>Recovr.AI</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="/dashboard" class="nav-item">dashboard</a>
+        <a href="/food" class="nav-item">food analysis</a>
+        <a href="/chat_bot" class="nav-item">AI buddy</a>
+        <a href="/community" class="nav-item">Community</a>
+        <a href="/medication" class="nav-item active">medication</a>
+      </div>
+
+      <div class="nav-right">
+        <div class="profile-icon">
+          <%= typeof user !== 'undefined' && user.name ? user.name.substring(0,
+          2).toUpperCase() : 'SA' %>
+        </div>
+      </div>
+    </nav>
+
+    <div class="mobile-header">
+      <a href="/dashboard" class="mobile-back-btn">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </a>
+      <div class="mobile-logo">
+        <img src="/images/logo.png" alt="Recovr.AI Logo" />
+        Recovr.AI
+      </div>
+      <div
+        class="profile-icon"
+        style="width: 32px; height: 32px; font-size: 0.8rem">
+        <%= typeof user !== 'undefined' && user.name ? user.name.substring(0,
+        2).toUpperCase() : 'SA' %>
+      </div>
+    </div>
+
+    <div class="reminders-container">
+      <div class="reminders-header">
+        <h1>💊 Medication Reminders</h1>
+        <p class="user-name">Hello, <%= user.name %>!</p>
+      </div>
+
+      <div class="add-reminder-section">
+        <div class="form-container">
+          <h3>➕ Add New Reminder</h3>
+          <form id="addReminderForm">
+            <div class="form-group">
+              <label for="medicineName">Medicine/Reminder Name</label>
+              <input
+                type="text"
+                id="medicineName"
+                placeholder="e.g., Aspirin, Take vitamins"
+                required />
+            </div>
+            <div class="form-group">
+              <label for="reminderTime">Time</label>
+              <input type="time" id="reminderTime" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Add Reminder</button>
+          </form>
+          <div id="addMessage" class="message"></div>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="today">
+          📅 Today's Reminders
+        </button>
+        <button class="tab-btn" data-tab="history">📚 History</button>
+      </div>
+
+      <div id="today" class="tab-content active">
+        <div class="reminders-list" id="todayRemindersList">
+          <div class="empty-state">
+            <p>No reminders for today yet</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="history" class="tab-content">
+        <div class="reminders-list" id="historyRemindersList">
+          <div class="empty-state">
+            <p>No reminder history yet</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h3>Edit Reminder</h3>
+        <form id="editForm">
+          <input type="hidden" id="editId" />
+          <div class="form-group">
+            <label for="editMedicine">Medicine/Reminder Name</label>
+            <input type="text" id="editMedicine" required />
+          </div>
+          <div class="form-group">
+            <label for="editTime">Time</label>
+            <input type="time" id="editTime" required />
+          </div>
+          <button type="submit" class="btn btn-primary">Update Reminder</button>
+        </form>
+        <div id="editMessage" class="message"></div>
+      </div>
+    </div>
+
+    <script src="/javascript/reminders.js"></script>
+  </body>
+</html>

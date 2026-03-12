@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MyHealth Portal - Login</title>
+    <link rel="stylesheet" href="/stylesheet/login.css" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet" />
+
+   <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/images/favicon-32x32.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/images/favicon-16x16.png" />
+
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/images/apple-touch-icon.png" />
+
+    <link rel="manifest" href="/site.webmanifest" />
+    
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <div class="login-card">
+        <div class="header-section">
+          <div class="logo-icon">
+            <i class="ph-bold ph-heartbeat"></i>
+          </div>
+          <h1>Recovr.AI</h1>
+          <p class="tagline">Your personalized health journey begins here</p>
+        </div>
+
+        <form id="loginForm" action="/login" method="POST">
+          <div class="input-group">
+            <label for="email">Email Address</label>
+            <div class="input-wrapper">
+              <i class="ph ph-envelope"></i>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="hello@example.com"
+                required />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <div class="label-row">
+              <label for="password">Password</label>
+              <a href="#" class="forgot-link">Forgot?</a>
+            </div>
+            <div class="input-wrapper">
+              <i class="ph ph-lock"></i>
+              <input
+                name="password"
+                type="password"
+                id="password"
+                placeholder="••••••••"
+                required />
+            </div>
+          </div>
+
+          <button type="submit" class="sign-in-btn">
+            log in <i class="ph ph-arrow-right"></i>
+          </button>
+        </form>
+
+        <div class="footer-section">
+          <div class="secure-tag">
+            <i class="ph ph-shield-check"></i>
+            <span>SAFE & SECURE PATIENT DATA</span>
+          </div>
+          <p class="signup-text">
+            New here? <a href="/create">Create Account</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+    addVoiceGuideButton("enter email and password");
+});
+function addVoiceGuideButton(text) {
+    const btn = document.createElement("button");
+    btn.innerHTML = "🔊 Page Guide";
+    btn.style.cssText = "position:fixed;bottom:20px;right:20px;z-index:1000;padding:10px 20px;background:#00c897;color:white;border:none;border-radius:25px;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.2);font-weight:bold;font-family:sans-serif;";
+    
+    btn.onclick = () => {
+        if (window.speechSynthesis.speaking) {
+            window.speechSynthesis.cancel();
+        } else {
+            const speech = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(speech);
+        }
+    };
+    document.body.appendChild(btn);
+} 
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Recovr.AI - Community</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/images/favicon-32x32.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/images/favicon-16x16.png" />
+
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/images/apple-touch-icon.png" />
+
+    <link rel="manifest" href="/site.webmanifest" />
+    
+    <style>
+      /* --- THEME VARIABLES --- */
+      :root {
+        --brand-green: #2ecc71;
+        --brand-green-dark: #27ae60;
+        --brand-blue: #4285f4; 
+        --bg-color: #f8f9fa;
+        --card-bg: #ffffff;
+        --text-dark: #333333;
+        --text-light: #555555;
+        --nav-text: #555;
+        --border-color: #e5e5e5;
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05),
+          0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        --radius: 16px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-dark);
+        height: 100dvh; 
+        display: flex;
+        flex-direction: column;
+        overflow: hidden; 
+      }
+
+      /* --- NAVBAR (Desktop) --- */
+      .navbar {
+        background-color: white;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 24px;
+        border-bottom: 1px solid var(--border-color);
+        z-index: 100;
+        flex-shrink: 0;
+      }
+
+      .logo-section {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 700;
+        font-size: 1.4rem;
+        color: var(--brand-green);
+        text-decoration: none;
+        letter-spacing: -0.5px;
+      }
+
+      .logo-section img {
+        height: 35px;
+        width: auto;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 32px;
+        height: 100%;
+      }
+
+      .nav-item {
+        text-decoration: none;
+        color: var(--nav-text);
+        font-weight: 500;
+        font-size: 0.95rem;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        border-bottom: 3px solid transparent;
+        transition: all 0.2s;
+        text-transform: capitalize;
+      }
+
+      .nav-item:hover {
+        color: var(--brand-green);
+      }
+
+      .nav-item.active {
+        color: black;
+        border-bottom-color: var(--brand-green);
+      }
+
+      .profile-icon {
+        width: 36px;
+        height: 36px;
+        background-color: #e57373;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+      }
+
+      /* --- MAIN CHAT CONTAINER --- */
+      .main-container {
+        flex: 1;
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        min-height: 0; 
+      }
+
+      .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+
+      .page-header h1 {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+        color: #333;
+      }
+
+      .page-header p {
+        color: #777;
+      }
+
+      /* --- CHAT CARD UI --- */
+      .chat-card {
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        min-height: 0; 
+        border: 1px solid var(--border-color);
+      }
+
+      .chat-header {
+        padding: 1.25rem;
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #fff;
+        flex-shrink: 0;
+      }
+
+      .chat-header h3 {
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        margin: 0;
+        color: #333;
+      }
+
+      .mobile-back-btn {
+          display: none; 
+          color: var(--text-dark);
+          margin-right: 12px;
+          text-decoration: none;
+          align-items: center;
+          justify-content: center;
+          transition: color 0.2s;
+      }
+      .mobile-back-btn:hover { color: var(--brand-green); }
+
+      .mobile-logo {
+          display: none; 
+          align-items: center;
+          gap: 8px;
+          color: var(--brand-green);
+          font-weight: 700;
+          font-family: 'Inter', sans-serif !important;
+          font-size: 1.2rem; 
+          letter-spacing: -0.5px; 
+      }
+
+      .mobile-logo img {
+        height: 28px;
+        width: auto;
+      }
+
+      .desktop-title {
+          display: block; 
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      /* Updated Clear Button Styles to look good on an <a> tag */
+      /* .clear-btn {
+        background-color: #fee2e2;
+        color: #ef4444;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-decoration: none;
+        display: inline-block;
+      }
+      .clear-btn:hover {
+        background-color: #fca5a5;
+      } */
+
+      .online-badge {
+        font-size: 0.85rem;
+        color: var(--brand-green);
+        background: rgba(46, 204, 113, 0.1);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .online-dot {
+          width: 8px; height: 8px; background-color: var(--brand-green); border-radius: 50%;
+      }
+
+      /* --- MESSAGES AREA --- */
+      .messages-area {
+        flex: 1;
+        padding: 1.5rem;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        background-color: #fcfcfc;
+      }
+
+      .message {
+        max-width: 70%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .message.received { align-self: flex-start; }
+      .message.sent { align-self: flex-end; align-items: flex-end; }
+
+      .bubble {
+        padding: 12px 16px;
+        border-radius: 12px;
+        font-size: 0.95rem;
+        line-height: 1.4;
+        position: relative;
+        word-wrap: break-word;
+      }
+
+      .message.received .bubble {
+        background-color: #f0f2f5;
+        color: var(--text-dark);
+        border-bottom-left-radius: 2px;
+      }
+
+      .message.sent .bubble {
+        background-color: var(--brand-green);
+        color: white;
+        border-bottom-right-radius: 2px;
+      }
+
+      .meta-info {
+        display: flex;
+        gap: 8px;
+        margin-top: 4px;
+        font-size: 0.75rem;
+        color: #999;
+      }
+
+      .sender-name { font-weight: 600; }
+
+      /* --- INPUT AREA --- */
+      .input-area {
+        padding: 1rem;
+        padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+        background: white;
+        border-top: 1px solid var(--border-color);
+        display: flex;
+        gap: 0.8rem;
+        flex-shrink: 0;
+      }
+
+      .input-area input {
+        flex: 1;
+        padding: 12px 20px;
+        border: 1px solid #ddd;
+        border-radius: 30px;
+        outline: none;
+        transition: border 0.3s;
+        font-size: 1rem; 
+        font-family: inherit;
+      }
+
+      .input-area input:focus {
+        border-color: var(--brand-green);
+      }
+
+      .send-btn {
+        background-color: var(--brand-blue);
+        color: white;
+        border: none;
+        padding: 0 24px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 600;
+        font-family: inherit;
+        transition: background 0.2s;
+      }
+      .send-btn:hover {
+          background-color: #3367d6;
+      }
+
+      /* --- MOBILE OPTIMIZATIONS --- */
+      @media (max-width: 768px) {
+        .navbar { display: none; } 
+        
+        .page-header { display: none; }
+
+        .main-container {
+            padding: 0;
+            margin: 0;
+            gap: 0;
+        }
+
+        .chat-card {
+            border-radius: 0;
+            box-shadow: none;
+            border: none;
+        }
+        
+        .mobile-back-btn { display: flex; }
+        .mobile-logo { display: flex; }
+        .desktop-title { display: none; }
+
+        .messages-area {
+            padding: 1rem;
+        }
+
+        .message {
+            max-width: 85%; 
+        }
+      }
+    </style>
+  </head>
+  <body>
+
+    <nav class="navbar">
+        <a href="/dashboard" class="logo-section">
+            <img src="/images/logo.png" alt="Recovr.AI Logo">
+            <span>Recovr.AI</span>
+        </a>
+        
+        <div class="nav-links">
+            <a href="/dashboard" class="nav-item">dashboard</a>
+            <a href="/food" class="nav-item">food analysis</a>
+            <a href="/chat_bot" class="nav-item">AI buddy</a>
+            <a href="/community" class="nav-item active">Community</a> 
+            <a href="/medication" class="nav-item">medication</a>
+        </div>
+
+        <div class="profile-icon">
+             <%= typeof user !== 'undefined' && user.name ? user.name.substring(0, 2).toUpperCase() : 'SA' %>
+        </div>
+    </nav>
+
+    <div class="main-container">
+      <div class="page-header">
+        <div>
+            <h1>Community Room</h1>
+            <p>Connect with others on their recovery journey.</p>
+        </div>
+        <!-- <a href="/clear-chat" class="clear-btn" onclick="return confirm('Are you sure you want to permanently delete all messages for everyone? This cannot be undone.');">Clear Entire Chat</a> -->
+      </div>
+
+      <div class="chat-card">
+        <div class="chat-header">
+          <h3>
+              <a href="/dashboard" class="mobile-back-btn">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="19" y1="12" x2="5" y2="12"></line>
+                      <polyline points="12 19 5 12 12 5"></polyline>
+                  </svg>
+              </a>
+              
+              <span class="mobile-logo">
+                  <img src="/images/logo.png" alt="Recovr.AI Logo">
+                  Recovr.AI
+              </span>
+
+              <span class="desktop-title">General Chat</span>
+          </h3>
+          <div class="header-actions">
+              <span class="online-badge"><div class="online-dot"></div> Live</span>
+          </div>
+        </div>
+
+        <div class="messages-area" id="messagesArea">
+          <% if (typeof messages !== 'undefined' && messages.length > 0) { %> 
+            <% messages.forEach(function(msg) { %>
+              <div class="message <%= msg.sender === user.name ? 'sent' : 'received' %>">
+                <div class="bubble"><%= msg.text %></div>
+                <div class="meta-info">
+                  <% if (msg.sender !== user.name) { %>
+                    <span class="sender-name"><%= msg.sender %></span>
+                  <% } %>
+                  <span class="timestamp"><%= msg.time %></span>
+                </div>
+              </div>
+            <% }); %> 
+          <% } else { %>
+            <div id="empty-state" style="text-align: center; color: #ccc; margin-top: 20px">
+              No messages yet. Start the conversation!
+            </div>
+          <% } %>
+        </div>
+
+        <div class="input-area">
+          <input
+            type="text"
+            id="messageInput"
+            placeholder="Type a message..."
+            autocomplete="off"
+          />
+          <button class="send-btn" onclick="sendMessage()">Send</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      let socketUrl = "/"; 
+
+      if (window.Capacitor) {
+          socketUrl = "https://recover-ai-app.onrender.com"; 
+      }
+
+      const socket = io(socketUrl, {
+          transports: ['websocket', 'polling'] 
+      });
+      
+      const messagesArea = document.getElementById("messagesArea");
+      const messageInput = document.getElementById("messageInput");
+
+      const currentUserName = "<%= user.name %>";
+
+      messagesArea.scrollTop = messagesArea.scrollHeight;
+
+      messageInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault(); 
+          sendMessage();
+        }
+      });
+
+      function sendMessage() {
+        const text = messageInput.value.trim();
+        if (text === "") return;
+
+        const now = new Date();
+        const timeString = now.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+
+        socket.emit("chat message", {
+          text: text,
+          time: timeString,
+          sender: currentUserName,
+        });
+
+        messageInput.value = "";
+      }
+
+      socket.on("chat message", function (msg) {
+        const emptyState = document.getElementById('empty-state');
+        if (emptyState) emptyState.remove();
+
+        const messageDiv = document.createElement("div");
+
+        const isMe = msg.sender === currentUserName;
+        messageDiv.className = isMe ? "message sent" : "message received";
+
+        let senderHtml = "";
+        if (!isMe) {
+          senderHtml = `<span class="sender-name">${msg.sender}</span>`;
+        } 
+
+        messageDiv.innerHTML = `
+            <div class="bubble">${msg.text}</div>
+            <div class="meta-info">
+                ${senderHtml}
+                <span class="timestamp">${msg.time}</span>
+            </div>
+        `;
+
+        messagesArea.appendChild(messageDiv);
+        messagesArea.scrollTop = messagesArea.scrollHeight;
+      });
+
+    document.addEventListener('DOMContentLoaded', () => {
+    addVoiceGuideButton("Engage in peer-to-peer discussions within our secure community environment.");
+    });
+
+function addVoiceGuideButton(text) {
+    const btn = document.createElement("button");
+    btn.innerHTML = "🔊 Page Guide";
+    btn.style.cssText = "position:fixed;bottom:20px;right:20px;z-index:1000;padding:10px 20px;background:#00c897;color:white;border:none;border-radius:25px;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.2);font-weight:bold;font-family:sans-serif;";
+    
+    btn.onclick = () => {
+        if (window.speechSynthesis.speaking) {
+            window.speechSynthesis.cancel();
+        } else {
+            const speech = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(speech);
+        }
+    };
+    document.body.appendChild(btn);
+} 
+    </script>
+  </body>
+</html>
